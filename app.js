@@ -1,5 +1,10 @@
 'use strict'
 
+init: () => {
+    playlist.setup();
+    APP.addListeners();
+  }
+
 const player = document.querySelector('.audioplayer')
 const playerSource = document.querySelector('.audioplayer source')
 const play = document.querySelector('.playbtn')
@@ -12,10 +17,13 @@ const progressBar = document.querySelector('#progressbar')
 const skipButtons = document.querySelectorAll('[data-skip]');
 const playlist = document.querySelectorAll('[audio-src]');
 
+//1.1 when user clicks on any item playlist item
 playlist.forEach(e => {
-    e.addEventListener('click', () => {
-          playerSource.src = e.getAttribute('audio-src')
-          playlist.forEach(n => n.classList.remove('active'))
+    e.addEventListener('click', () => { 
+        //change audio player audio file
+          playerSource.src = e.getAttribute('audio-src') 
+          //remove active state from previous playlist item and add to current item
+          playlist.forEach(n => n.classList.remove('active')) 
           e.classList.add('active')
           player.load();
           player.play();
@@ -115,3 +123,7 @@ player.addEventListener("timeupdate", function() {
   var seconds = player.duration;
   durationTime.innerHTML = formatTime(seconds);
   });
+
+  
+
+  document.addEventListener('DOMContentLoaded', APP.init);
