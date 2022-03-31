@@ -2,7 +2,6 @@
 
 const APP = {
 	init: () => {
-		
 		setup();
 	},
 };
@@ -20,6 +19,11 @@ const skipButtons = document.querySelectorAll('[data-skip]');
 let playlist = document.querySelectorAll('[audio-src]');
 
 const playListContainer = document.querySelector('.playlist');
+
+const animation = document.querySelector('.red-play-btn');
+let iteration = 0;
+
+
 
 function setup() {
 	allMusic.map((song) => {
@@ -51,10 +55,12 @@ $('.playlist').on('click', 'div.playlist-item', function (e) {
 	//load player audio again
 	player.load();
 	//play audio
-	player.play();
+	playSong();
 	//change audio thumbnail
 	thumb.src = e.currentTarget.querySelector('img').getAttribute('src');
 });
+
+
 
 
 //1.2 when user click on next btn
@@ -96,16 +102,27 @@ prev.addEventListener('click', function () {
 	});
 });
 
-play.addEventListener('click', function () {
+function playSong (){
 	player.play();
+	let animation = document.getElementById("imageAnimate");
+	animation.classList.add("is-playing")
+}
+
+play.addEventListener('click', function () {
+	playSong()
 });
+
 
 pause.addEventListener('click', function () {
 	player.pause();
+	let animation = document.getElementById("imageAnimate");
+	animation.classList.remove("is-playing")
 });
 
 stop.addEventListener('click', function () {
 	player.pause();
+	let animation = document.getElementById("imageAnimate");
+	animation.classList.remove("is-playing")
 	if (player.currentTime) player.currentTime = 0;
 });
 
